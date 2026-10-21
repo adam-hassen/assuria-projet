@@ -1,7 +1,7 @@
 name: Synchronisation des données
 
 # Récupère les dernières données nettoyées du dépôt assuria-donnees
-# (sinistres -> data/objectif3-sinistres/, offres -> data/objectif1-offres/), commit seulement si elles ont changé.
+# (sinistres -> data/objectif3-sinistres/, offres -> data/objectif1-offres/, prix simulés -> data/objectif1-simulation/), commit seulement si elles ont changé.
 on:
   schedule:
     - cron: "17 * * * *"   # toutes les heures
@@ -31,6 +31,10 @@ jobs:
           mkdir -p data/objectif1-offres
           if [ -d _source/data/clean/offres ]; then
             cp _source/data/clean/offres/* data/objectif1-offres/
+          fi
+          mkdir -p data/objectif1-simulation
+          if [ -d _source/data/clean/simulation ]; then
+            cp _source/data/clean/simulation/* data/objectif1-simulation/
           fi
           rm -rf _source
 

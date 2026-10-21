@@ -14,7 +14,7 @@ Projet ENSIM : services d'assurance intelligents combinant IA générative, peti
 
 | Dossier | Contenu |
 | --- | --- |
-| [`data/`](data/) | Jeux de données du projet : [offres d'assurance](data/objectif1-offres/README.md) et [sinistres](data/objectif3-sinistres/README.md), auto et moto en Europe |
+| [`data/`](data/) | Jeux de données du projet : [offres d'assurance](data/objectif1-offres/README.md), [prix simulés](data/objectif1-simulation/README.md) et [sinistres](data/objectif3-sinistres/README.md), auto et moto en Europe |
 
 ## Liens
 
