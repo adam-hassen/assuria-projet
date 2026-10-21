@@ -1,0 +1,43 @@
+name: Synchronisation des données (objectif 3)
+
+# Récupère les dernières données nettoyées du dépôt assuria-donnees
+# et les enregistre dans data/objectif3-sinistres/ (commit seulement si elles ont changé).
+on:
+  schedule:
+    - cron: "17 * * * *"   # toutes les heures
+  workflow_dispatch:        # lancement manuel possible
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Récupérer le dépôt de données
+        uses: actions/checkout@v4
+        with:
+          repository: adam-hassen/assuria-donnees
+          path: _source
+
+      - name: Copier les données nettoyées
+        run: |
+          mkdir -p data/objectif3-sinistres
+          for f in sinistres_europe.parquet sinistres_bruts.parquet rapport_nettoyage.json README.md; do
+            cp "_source/data/clean/$f" data/objectif3-sinistres/
+          done
+          rm -rf _source
+
+      - name: Enregistrer si changement
+        run: |
+          git add data/
+          if git diff --cached --quiet; then
+            echo "Aucune nouveauté"
+          else
+            git config user.name "pipeline-donnees"
+            git config user.email "pipeline-donnees@users.noreply.github.com"
+            git commit -m "Données objectif 3 : mise à jour automatique $(date -u +%F)"
+            git push
+          fi
