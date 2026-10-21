@@ -1,7 +1,7 @@
-name: Synchronisation des données (objectif 3)
+name: Synchronisation des données
 
 # Récupère les dernières données nettoyées du dépôt assuria-donnees
-# et les enregistre dans data/objectif3-sinistres/ (commit seulement si elles ont changé).
+# (sinistres -> data/objectif3-sinistres/, offres -> data/objectif1-offres/), commit seulement si elles ont changé.
 on:
   schedule:
     - cron: "17 * * * *"   # toutes les heures
@@ -28,6 +28,10 @@ jobs:
           for f in sinistres_europe.parquet sinistres_bruts.parquet rapport_nettoyage.json README.md; do
             cp "_source/data/clean/$f" data/objectif3-sinistres/
           done
+          mkdir -p data/objectif1-offres
+          if [ -d _source/data/clean/offres ]; then
+            cp _source/data/clean/offres/* data/objectif1-offres/
+          fi
           rm -rf _source
 
       - name: Enregistrer si changement
@@ -38,6 +42,6 @@ jobs:
           else
             git config user.name "pipeline-donnees"
             git config user.email "pipeline-donnees@users.noreply.github.com"
-            git commit -m "Données objectif 3 : mise à jour automatique $(date -u +%F)"
+            git commit -m "Données : mise à jour automatique $(date -u +%F)"
             git push
           fi
