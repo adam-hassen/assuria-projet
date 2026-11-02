@@ -6,6 +6,7 @@
 | [`objectif1-profils/`](objectif1-profils/) | 25 008 profils d'assurés auto et moto organisés comme un formulaire de devis, avec le dictionnaire des champs | Automatique |
 | [`objectif1-simulation/`](objectif1-simulation/) | Prix de base de chaque offre, profils générés et prix simulés. Fichier unique : `offres_prix_profils.csv` | Automatique |
 | [`externe/`](externe/) | Offres auto françaises structurées avec vrais prix par profil, freMTPL2 complet | À la main |
+| [`objectif3-sinistres-detailles/`](objectif3-sinistres-detailles/) | 26 444 sinistres réels (France) détaillés : type, circonstances, déclaration en texte libre, découpage entraînement/test | Automatique |
 | [`objectif3-sinistres/`](objectif3-sinistres/) | Sinistres auto et moto en Europe, nettoyés, pour prédire le coût d'un sinistre | Automatique |
 
 Les données sont produites par le dépôt [assuria-donnees](https://github.com/adam-hassen/assuria-donnees)
