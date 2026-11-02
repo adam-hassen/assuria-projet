@@ -1,7 +1,7 @@
 name: Synchronisation des données
 
-# Récupère les dernières données nettoyées du dépôt assuria-donnees
-# (sinistres -> data/objectif3-sinistres/, offres -> data/objectif1-offres/, prix simulés -> data/objectif1-simulation/), commit seulement si elles ont changé.
+# Récupère les données du dépôt assuria-donnees et les range par objectif dans data/ (script scripts/sync.sh).
+# Commit seulement si quelque chose a changé.
 on:
   schedule:
     - cron: "17 * * * *"   # toutes les heures
@@ -22,34 +22,14 @@ jobs:
           repository: adam-hassen/assuria-donnees
           path: _source
 
-      - name: Copier les données nettoyées
+      - name: Copier les données, rangées par objectif
         run: |
-          mkdir -p data/objectif3-sinistres
-          for f in sinistres_europe.parquet sinistres_bruts.parquet rapport_nettoyage.json README.md; do
-            cp "_source/data/clean/$f" data/objectif3-sinistres/
-          done
-          mkdir -p data/objectif1-offres
-          if [ -d _source/data/clean/offres ]; then
-            cp _source/data/clean/offres/* data/objectif1-offres/
-          fi
-          mkdir -p data/objectif1-simulation
-          if [ -d _source/data/clean/simulation ]; then
-            cp _source/data/clean/simulation/* data/objectif1-simulation/
-          fi
-          if [ -d _source/data/objectif3 ]; then
-            mkdir -p data/objectif3-sinistres-detailles && cp _source/data/objectif3/* data/objectif3-sinistres-detailles/
-          fi
-          if [ -d _source/data/profils ]; then
-            mkdir -p data/objectif1-profils && cp _source/data/profils/* data/objectif1-profils/
-          fi
-          if [ -d _source/data/externe ]; then
-            mkdir -p data/externe && cp -r _source/data/externe/* data/externe/
-          fi
+          bash scripts/sync.sh _source
           rm -rf _source
 
       - name: Enregistrer si changement
         run: |
-          git add data/
+          git add -A data/
           if git diff --cached --quiet; then
             echo "Aucune nouveauté"
           else
