@@ -36,6 +36,9 @@ jobs:
           if [ -d _source/data/clean/simulation ]; then
             cp _source/data/clean/simulation/* data/objectif1-simulation/
           fi
+          if [ -d _source/data/externe ]; then
+            mkdir -p data/externe && cp -r _source/data/externe/* data/externe/
+          fi
           rm -rf _source
 
       - name: Enregistrer si changement
