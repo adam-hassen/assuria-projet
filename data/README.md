@@ -3,6 +3,7 @@
 | Dossier | Contenu | Mise à jour |
 | --- | --- | --- |
 | [`objectif1-offres/`](objectif1-offres/) | Offres d'assurance auto et moto en Europe (garanties, exclusions, franchises), pour personnaliser les offres | Automatique |
+| [`objectif1-profils/`](objectif1-profils/) | 25 008 profils d'assurés auto et moto organisés comme un formulaire de devis, avec le dictionnaire des champs | Automatique |
 | [`objectif1-simulation/`](objectif1-simulation/) | Prix de base de chaque offre, profils générés et prix simulés. Fichier unique : `offres_prix_profils.csv` | Automatique |
 | [`externe/`](externe/) | Offres auto françaises structurées avec vrais prix par profil, freMTPL2 complet | À la main |
 | [`objectif3-sinistres/`](objectif3-sinistres/) | Sinistres auto et moto en Europe, nettoyés, pour prédire le coût d'un sinistre | Automatique |
