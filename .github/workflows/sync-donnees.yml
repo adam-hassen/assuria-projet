@@ -13,6 +13,8 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    outputs:
+      change: ${{ steps.commit.outputs.change }}
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +30,7 @@ jobs:
           rm -rf _source
 
       - name: Enregistrer si changement
+        id: commit
         run: |
           git add -A data/
           if git diff --cached --quiet; then
@@ -37,4 +40,11 @@ jobs:
             git config user.email "pipeline-donnees@users.noreply.github.com"
             git commit -m "Données : mise à jour automatique $(date -u +%F)"
             git push
+            echo "change=true" >> "$GITHUB_OUTPUT"
           fi
+
+  neon:
+    needs: sync
+    if: needs.sync.outputs.change == 'true'
+    uses: ./.github/workflows/charger-neon.yml
+    secrets: inherit

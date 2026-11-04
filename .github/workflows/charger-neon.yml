@@ -1,0 +1,35 @@
+name: Chargement dans Neon
+
+# Charge toutes les données de data/ dans la base Postgres Neon (schémas objectif1, objectif2, objectif3).
+# Lancé à la main, à chaque push qui touche data/, et par la synchronisation quand les données changent.
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+    paths: ["data/**", "scripts/charger_neon.py"]
+
+jobs:
+  neon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pandas pyarrow sqlalchemy psycopg2-binary
+
+      - name: Charger les tables
+        env:
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          if [ -z "$NEON_DATABASE_URL" ]; then
+            echo "::warning::Secret NEON_DATABASE_URL absent : à ajouter dans Settings > Secrets and variables > Actions"
+            exit 0
+          fi
+          python scripts/charger_neon.py
