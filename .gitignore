@@ -1,0 +1,4 @@
+objectif1/agent_profil_slm/modeles/
+objectif1/agent_profil_slm/resultats/*/reponses.jsonl
+__pycache__/
+*.gguf
