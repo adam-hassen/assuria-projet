@@ -128,8 +128,6 @@ assuria-projet/
 │       ├── sinistres_detailles/          sinistres réels + circonstances + déclaration
 │       ├── sinistres_europe/             7 jeux publics nettoyés et fusionnés
 │       └── fremtpl2/                     freMTPL2 complet (contrats et sinistres)
-├── objectif1/
-│   └── agent_profil_slm/                 petit modèle fine-tuné qui construit le profil à partir de la conversation
 ├── scripts/
 │   ├── sync.sh                           recopie les données depuis assuria-donnees
 │   └── charger_neon.py                   charge les données dans Neon
@@ -139,12 +137,6 @@ assuria-projet/
 ```
 
 Chaque dossier de `data/` a son propre README : contenu, colonnes, sources, limites.
-
-### Travaux par objectif
-
-| Dossier | Contenu |
-| --- | --- |
-| [`objectif1/agent_profil_slm`](objectif1/agent_profil_slm/) | Fine-tuning LoRA d'un petit modèle local (Qwen 0,5 à 1,5 B) qui lit la conversation de devis et en sort le profil en JSON ; 7 000 conversations générées à partir des profils, scripts Mac (MLX) et GPU, export vers Ollama, évaluation comparative |
 
 ---
 
