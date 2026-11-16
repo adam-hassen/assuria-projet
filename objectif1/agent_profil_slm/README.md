@@ -32,7 +32,7 @@ ainsi à ne rien inventer, ce qu'on mesure à part (taux d'« inventions »).
 | `schema.py` | Les 28 champs du profil et la consigne donnée au modèle (la même pour tous les modèles comparés) |
 | `generer_conversations.py` | Crée les conversations à partir des profils, avec le profil attendu |
 | `donnees/` | `train.jsonl` (6 000), `valid.jsonl` (500), `test.jsonl` (500) au format chat, et `test_conversations.jsonl` pour l'évaluation |
-| `entrainer_mac.sh` | Fine-tuning LoRA sur Mac Apple Silicon avec MLX, puis fusion du modèle |
+| `entrainer_mac.sh`, `lora_mac.yaml` | Fine-tuning LoRA sur Mac Apple Silicon avec MLX (réglages dans le YAML), puis fusion du modèle |
 | `entrainer_gpu.py` | Même fine-tuning sur GPU NVIDIA (Google Colab, Kaggle) |
 | `vers_ollama.sh` | Convertit le modèle fine-tuné en GGUF et le crée dans Ollama |
 | `evaluer.py` | Mesure un modèle sur le jeu de test et compare tous les modèles évalués |

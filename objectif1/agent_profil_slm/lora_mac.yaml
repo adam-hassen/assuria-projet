@@ -1,0 +1,18 @@
+# Réglages du fine-tuning LoRA avec MLX (Mac), identiques à entrainer_gpu.py
+fine_tune_type: lora
+num_layers: -1              # LoRA sur les 28 couches du modèle
+batch_size: 4
+learning_rate: 1.0e-4
+max_seq_length: 2048
+mask_prompt: true           # la perte ne porte que sur la réponse JSON
+grad_checkpoint: true
+steps_per_report: 20
+steps_per_eval: 250
+val_batches: 25
+save_every: 250
+lora_parameters:
+  keys: ["self_attn.q_proj", "self_attn.k_proj", "self_attn.v_proj", "self_attn.o_proj",
+         "mlp.gate_proj", "mlp.up_proj", "mlp.down_proj"]
+  rank: 16                  # taille des petites matrices ajoutées
+  scale: 2.0                # alpha / rang = 32 / 16
+  dropout: 0.05

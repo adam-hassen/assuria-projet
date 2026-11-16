@@ -14,23 +14,13 @@ SORTIE="$DOSSIER/modeles/$NOM"
 python3 -m pip install --quiet "mlx-lm>=0.22"
 mkdir -p "$SORTIE"
 
-# 1. Entraînement : seule la réponse (le JSON) compte dans la perte (--mask-prompt)
+# 1. Entraînement (réglages dans lora_mac.yaml : LoRA rang 16 sur toutes les couches, perte sur le JSON seulement)
 mlx_lm.lora \
+  -c "$DOSSIER/lora_mac.yaml" \
   --model "$MODELE" \
   --train \
   --data "$DOSSIER/donnees" \
-  --fine-tune-type lora \
-  --num-layers 16 \
-  --batch-size 4 \
   --iters "$ITERS" \
-  --learning-rate 1e-4 \
-  --max-seq-length 2048 \
-  --mask-prompt \
-  --grad-checkpoint \
-  --steps-per-report 20 \
-  --steps-per-eval 250 \
-  --val-batches 25 \
-  --save-every 250 \
   --adapter-path "$SORTIE/adapters"
 
 # 2. Fusion du modèle de base et de l'adaptateur LoRA (modèle complet, au format Hugging Face)
