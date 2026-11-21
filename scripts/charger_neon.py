@@ -30,6 +30,7 @@ TABLES = [
     ("objectif1", "profils", "objectif1/profils/profils.parquet", "Profils d'assurés (20 pays, permis du monde)"),
     ("objectif1", "profils_dictionnaire", "objectif1/profils/dictionnaire.csv", "Question du formulaire pour chaque champ"),
     ("objectif1", "prix_base", "objectif1/simulation/prix_base.parquet", "Prix de base par offre et formule"),
+    ("objectif1", "reputation_assureurs", "objectif1/reputation/reputation_assureurs.csv", "Notes clients des assureurs (Trustpilot…)"),
     ("objectif1", "offres_prix_profils", "objectif1/simulation/offres_prix_profils.parquet", "Offres, prix de base et prix simulé par profil"),
     ("objectif2", "documents", "objectif2/documents.csv", "Documents d'offres pour le RAG"),
     ("objectif2", "passages", "objectif2/passages.parquet", "Passages à indexer, avec offre et page"),
